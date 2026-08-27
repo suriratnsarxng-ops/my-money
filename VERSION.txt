@@ -1,1 +1,1 @@
-My Money V38 - fixed reliable backup file picker
+My Money V39 - native file picker for reliable backup import
