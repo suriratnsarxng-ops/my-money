@@ -1,1 +1,1 @@
-My Money V37 - full backup/restore including invoices, people and merge-safe import
+My Money V38 - fixed reliable backup file picker
