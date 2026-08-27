@@ -1,2 +1,1 @@
-My Money V36 - mobile/PWA package based on V35
-Note: public URL hosting is still required for a shareable web link.
+My Money V37 - full backup/restore including invoices, people and merge-safe import
