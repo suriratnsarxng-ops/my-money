@@ -1,0 +1,8 @@
+<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Money - ตรวจข้อมูลเก่า</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ef6f8b"></head><body>
+<header class="topbar"><div><h1>My Money</h1><p>ตรวจสอบข้อมูลเดิมโดยไม่ลบข้อมูล</p></div><nav><a href="index.html">🏠 หน้าหลัก</a></nav></header>
+<main class="container"><section class="panel"><div class="panel-title"><h2>ข้อมูลที่เก็บอยู่ในเครื่องนี้</h2><p>หน้านี้ใช้ตรวจว่ารายการเก่ายังมีชื่ออะไรเก็บอยู่บ้าง และไม่แก้ไขข้อมูล</p></div><div id="out"></div></section></main>
+<script>
+const a=JSON.parse(localStorage.getItem("my-money-transactions")||"[]");
+const esc=v=>String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+out.innerHTML=a.map((x,i)=>`<div class="panel" style="margin:10px 0"><strong>รายการ ${i+1}</strong><pre style="white-space:pre-wrap">${esc(JSON.stringify(x,null,2))}</pre></div>`).join("")||"<p>ไม่พบข้อมูล</p>";
+</script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Money - ออกบิล</title><link rel="stylesheet" href="style.css">
+<style>
+.invoice-row{display:grid;grid-template-columns:1fr 140px 130px 110px;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.invoice-row:last-child{border-bottom:0}.invoice-preview{max-width:760px;margin:20px auto;border:1px solid #ddd;padding:32px;background:#fff}
+.invoice-preview h2{text-align:center;margin-top:0}.invoice-meta{display:flex;justify-content:space-between;gap:20px;margin:18px 0}.invoice-total{font-size:22px;font-weight:700;text-align:right;margin-top:24px}
+@media(max-width:700px){.invoice-row{grid-template-columns:1fr}.invoice-meta{flex-direction:column}}
+</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ef6f8b"></head>
+<body>
+<header class="topbar"><div><h1>My Money</h1><p>ระบบออกบิล</p></div>
+<nav><a href="index.html">🏠 หน้าหลัก</a><a href="due.html">📅 รายการที่ต้องจ่าย</a><a href="installments.html">💳 รายการผ่อน</a><a class="active" href="invoice.html">🧾 ออกบิล</a></nav></header>
+<main class="container">
+<section class="panel"><div class="panel-title"><h2>🧾 ประวัติบิล</h2><p>ดูบิลที่เคยออก และเปิดพิมพ์ซ้ำได้</p></div>
+<div id="invoiceHistory"></div><div id="invoiceHistoryEmpty" class="empty">ยังไม่มีประวัติบิล</div></section>
+<section class="panel"><div class="panel-title"><h2>👤 รายชื่อสำหรับออกบิล</h2><p>เพิ่มชื่อไว้ใช้เลือกบนบิลได้</p></div>
+<div class="form-grid">
+<label>ชื่อผู้รับเงิน<input id="receiverName" placeholder="เช่น ร้านค้า / คุณสมชาย"></label>
+<label>ชื่อผู้จ่ายเงิน<input id="payerName" placeholder="เช่น คุณสุรีรัตน์"></label>
+<button class="primary-btn" type="button" id="addReceiverBtn">+ เพิ่มผู้รับเงิน</button>
+<button class="primary-btn" type="button" id="addPayerBtn">+ เพิ่มผู้จ่ายเงิน</button>
+</div>
+<div id="peopleList" class="note" style="margin-top:12px"></div></section>
+<section class="panel"><div class="panel-title"><h2>🧾 เลือกรายการที่จะออกบิล</h2><p>เลือกได้เฉพาะรายการที่คุณต้องการออกบิล</p></div>
+<div class="panel" style="margin:0 0 14px;padding:14px">
+<label style="flex-direction:row;align-items:center;gap:10px;font-weight:600">
+<input id="multiMode" type="checkbox" style="width:auto"> เลือกหลายรายการเพื่อรวมเป็นบิลใบเดียว
+</label>
+</div>
+<div id="txList"></div><div id="emptyTx" class="empty">ยังไม่มีรายการรายรับ/รายจ่าย</div></section>
+<section id="previewPanel" class="panel" style="display:none">
+<div class="panel-title row"><div><h2>ตัวอย่างบิล</h2><p>ตรวจสอบก่อนพิมพ์</p></div><button class="primary-btn" onclick="printInvoice()">🖨️ พิมพ์ / บันทึก PDF</button></div>
+<div class="form-grid" style="margin-bottom:16px">
+<label>ผู้รับเงิน<select id="receiverSelect"></select></label>
+<label>ผู้จ่ายเงิน<select id="payerSelect"></select></label>
+</div>
+<div id="preview" class="invoice-preview"></div></section>
+</main>
+<script src="storage.js"></script><script src="invoice.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>

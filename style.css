@@ -1,0 +1,451 @@
+@import url('https://fonts.googleapis.com/css2?family=Krub:wght@400;500;600;700&display=swap');
+
+:root{
+  --purple:#5a45a5;--purple2:#7864c4;--ink:#25223a;--muted:#77758a;
+  --bg:#f7f8fc;--white:#fff;--line:#eceaf3;--green:#2f9b63;--red:#d9535d;
+  --blue:#397dc6;--yellow:#e6a82f;--shadow:0 8px 24px rgba(54,44,96,.07);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Krub','TH Krub',sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.55}
+button,input,select,textarea{font:inherit}
+a{text-decoration:none;color:inherit}
+
+.topbar{
+  position:fixed;left:0;top:0;bottom:0;width:280px;z-index:20;
+  background:rgba(255,255,255,.96);border-right:1px solid var(--line);
+  padding:26px 16px;display:flex;flex-direction:column;align-items:stretch;
+  box-shadow:4px 0 20px rgba(40,34,80,.03)
+}
+.topbar>div:first-child{padding:0 14px 22px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.topbar h1{font-size:30px;color:var(--purple);margin:0;font-weight:700;letter-spacing:.2px}
+.topbar h1::before{content:"🐷";font-size:30px;margin-right:10px;vertical-align:-2px}
+.topbar p{margin:0 0 0 42px;color:var(--muted);font-size:15px}
+.topbar nav{display:flex;flex-direction:column;gap:6px}
+.topbar nav a{
+  display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;
+  color:#4f4c5d;font-weight:500;transition:.15s ease
+}
+.topbar nav a:hover{background:#f4f1ff;color:var(--purple)}
+.topbar nav a.active{background:#f1edff;color:var(--purple);font-weight:700}
+.topbar::after{
+  content:"สวัสดีค่ะ 👋";margin-top:auto;padding:14px;color:var(--muted);
+  border-top:1px solid var(--line);font-size:14px;text-align:center
+}
+
+.container{max-width:none;margin:0;padding:36px 42px 50px 322px}
+.container>.panel:first-child{margin-top:0}
+.panel{
+  background:var(--white);border:1px solid var(--line);border-radius:18px;
+  padding:22px;box-shadow:var(--shadow);margin-bottom:18px
+}
+.panel-title{margin-bottom:18px}.panel-title h2{margin:0;color:var(--ink);font-size:23px;font-weight:700}
+.panel-title p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.panel-title.row{display:flex;justify-content:space-between;align-items:center;gap:15px}
+
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-bottom:18px}
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:17px;padding:20px;
+  box-shadow:var(--shadow);min-height:116px;display:flex;flex-direction:column;justify-content:center
+}
+.card span{color:#666477;font-size:15px}.card strong{font-size:25px;margin-top:8px;color:var(--ink)}
+.card.bank{background:linear-gradient(135deg,#effaf3,#fff)}.card.cash{background:linear-gradient(135deg,#fff9e9,#fff)}
+.card.balance{background:linear-gradient(135deg,#f3f0ff,#fff)}.card.income{background:linear-gradient(135deg,#f0f7ff,#fff)}
+.card.expense{background:linear-gradient(135deg,#fff1f1,#fff)}
+.card.due{background:linear-gradient(135deg,#fff5ee,#fff)}.card.remaining{background:linear-gradient(135deg,#fff0f0,#fff)}
+.card.paid{background:linear-gradient(135deg,#effaf3,#fff)}
+
+.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:end}
+label{display:flex;flex-direction:column;gap:6px;color:#555266;font-size:14px}
+input,select,textarea{
+  width:100%;padding:11px 13px;border:1px solid #ddd9e8;border-radius:11px;
+  background:#fff;color:var(--ink);outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:var(--purple2);box-shadow:0 0 0 3px rgba(120,100,196,.12)}
+.primary-btn,.status-btn,.undo-btn{
+  border:0;border-radius:11px;padding:11px 16px;cursor:pointer;font-weight:600
+}
+.primary-btn{background:var(--purple);color:#fff}.primary-btn:hover{background:#4c3990}
+.status-btn{background:#eee9ff;color:var(--purple)}.status-btn:hover{background:#e4dcff}
+.undo-btn{background:#f2f0f7;color:#4e4a5b}
+
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:13px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:#777486;font-weight:600;font-size:14px}td{font-size:15px}
+tr:hover td{background:#faf9fd}
+.note{color:var(--muted);font-size:13px}
+.empty{padding:35px;text-align:center;color:var(--muted)}
+
+.invoice-row{
+  display:grid;grid-template-columns:minmax(0,1fr) 140px 120px 105px;gap:14px;
+  align-items:center;padding:14px 0;border-bottom:1px solid var(--line)
+}
+.invoice-row:last-child{border-bottom:0}
+.invoice-preview{max-width:780px;margin:20px auto;border:1px solid #ddd9e8;padding:34px;background:#fff;border-radius:12px}
+.invoice-preview h2{text-align:center;margin-top:0}
+.bill-header{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}
+.bill-header h2{text-align:left}.bill-number{text-align:right}
+.bill-table{width:100%;margin-top:22px}.bill-table th:last-child,.bill-table td:last-child{text-align:right}
+.bill-payment{margin-top:18px}.invoice-total{font-size:22px;font-weight:700;text-align:right;border-top:2px solid #222;padding-top:15px;margin-top:25px}
+.signatures{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:70px;text-align:center}
+
+.monthly-summary{grid-template-columns:repeat(6,1fr)}
+.dashboard-cards{margin-bottom:16px}.dashboard-cards .card{min-height:112px}.dashboard-cards .card strong{font-size:22px}
+.home-due-row{grid-template-columns:minmax(0,1fr) 130px 110px 0}
+.home-due-row>button{display:none}
+
+@media(max-width:1100px){
+  .cards{grid-template-columns:repeat(3,1fr)}.monthly-summary{grid-template-columns:repeat(3,1fr)}
+  .container{padding-left:310px;padding-right:25px}.form-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .topbar{position:static;width:auto;height:auto;padding:14px;border-right:0;border-bottom:1px solid var(--line)}
+  .topbar>div:first-child{padding:0 4px 10px;margin-bottom:8px;border-bottom:0}
+  .topbar h1{font-size:24px}.topbar h1::before{font-size:24px}.topbar p{margin-left:34px}
+  .topbar nav{display:grid;grid-template-columns:repeat(2,1fr)}.topbar nav a{padding:10px;font-size:14px}
+  .topbar::after{display:none}.container{padding:20px 14px}
+  .cards,.monthly-summary{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}
+  .invoice-row{grid-template-columns:1fr}.panel-title.row{align-items:flex-start;flex-direction:column}
+  .bill-header{flex-direction:column}.bill-number{text-align:left}.signatures{gap:20px}
+}
+@media print{
+  body{background:#fff}.topbar,main>.panel:first-child,.panel-title button{display:none!important}
+  .invoice-preview{border:0;max-width:none;margin:0;padding:10px}
+}
+
+.delete-btn{border:0;background:#ffe5e7;color:#c8424d;border-radius:10px;padding:9px 15px;cursor:pointer;font-family:inherit;font-weight:600}
+.delete-btn:hover{background:#ffd7da}
+
+.invoice-history-card{display:grid;grid-template-columns:minmax(0,1fr) 130px auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.invoice-history-card:last-child{border-bottom:0}.history-main{min-width:0}.history-items{font-size:13px;color:var(--muted);margin-top:5px}.history-total{text-align:right}.history-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:850px){.invoice-history-card{grid-template-columns:1fr}.history-total{text-align:left}.history-actions{justify-content:flex-start}}
+
+/* ===== My Money • Cute Kitty Theme ===== */
+:root{
+  --purple:#e96b83;--purple2:#f39aaa;--ink:#4b3940;--muted:#8b747c;
+  --bg:#fff6f8;--white:#fff;--line:#f4dfe4;--green:#58ad7b;--red:#df5b6b;
+  --blue:#6ea8d8;--yellow:#e9b24d;--shadow:0 8px 24px rgba(202,91,116,.10);
+}
+body{
+  background:
+    radial-gradient(circle at 12px 12px,rgba(242,148,166,.11) 0 2px,transparent 2.5px) 0 0/34px 34px,
+    #fff8fa;
+  color:var(--ink);
+}
+.topbar{
+  background:rgba(255,255,255,.97);border-right:2px solid #f7d8df;
+}
+.topbar h1{color:#e35f79;font-weight:700}
+.topbar h1::before{content:"🎀";font-size:27px;margin-right:8px}
+.topbar p{color:#9a7d86}
+.topbar nav a{color:#6d555e}
+.topbar nav a:hover{background:#fff0f3;color:#dc5b75}
+.topbar nav a.active{
+  background:linear-gradient(135deg,#ffe3e9,#fff1f4);
+  color:#d95772;box-shadow:inset 0 0 0 1px #f7ccd5
+}
+.topbar::after{color:#a17e88}
+
+.container{padding-top:34px}
+.panel,.card{
+  border:1px solid #f2dce2;
+  box-shadow:0 8px 24px rgba(206,91,119,.08);
+}
+.panel{border-radius:22px}
+.card{border-radius:20px}
+.panel-title h2{color:#513b42}
+.panel-title h2::first-letter{color:#e85e79}
+.card span{color:#8a6c76}
+.card strong{color:#4b3940}
+
+.dashboard-cards .card:first-child{
+  background:linear-gradient(135deg,#ffe2e9,#fff8fa);
+  position:relative;overflow:hidden
+}
+.dashboard-cards .card:first-child::after{
+  content:"🎀";position:absolute;right:15px;top:10px;font-size:25px;opacity:.7
+}
+.card.bank{background:linear-gradient(135deg,#fff0f3,#fff)}
+.card.cash{background:linear-gradient(135deg,#fff7df,#fff)}
+.card.income{background:linear-gradient(135deg,#effaf4,#fff)}
+.card.expense{background:linear-gradient(135deg,#fff0f2,#fff)}
+.card.due{background:linear-gradient(135deg,#fff5df,#fff)}
+.card.remaining{background:linear-gradient(135deg,#ffe9ec,#fff)}
+.card.paid{background:linear-gradient(135deg,#eefaf3,#fff)}
+
+input,select,textarea{
+  border-color:#edd4da;border-radius:13px;background:#fffdfd
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#ef8fa1;box-shadow:0 0 0 3px rgba(239,143,161,.13)
+}
+.primary-btn{
+  background:linear-gradient(135deg,#e85f79,#f28ca0);
+  box-shadow:0 5px 12px rgba(220,87,113,.18)
+}
+.primary-btn:hover{background:#d9516c}
+.status-btn{background:#fff0f3;color:#d65a73}
+.status-btn:hover{background:#ffe2e8}
+.delete-btn{background:#fff0f1;color:#cf4c5e}
+.undo-btn{background:#f8edf0;color:#765b64}
+
+th{color:#957681}
+tr:hover td{background:#fff8fa}
+.invoice-row{border-bottom-color:#f4e1e5}
+.invoice-history-card{border-bottom-color:#f4e1e5}
+
+.invoice-preview{
+  border-color:#f0d5dc;border-radius:20px;
+  background:
+    radial-gradient(circle at 8px 8px,rgba(239,119,141,.08) 0 1.5px,transparent 2px) 0 0/24px 24px,
+    #fff
+}
+.bill-header h2{color:#d95772}
+.bill-number strong{color:#d95772}
+.invoice-total{border-top-color:#efb5c0;color:#d95772}
+.signatures strong{color:#76545d}
+
+.home-due-row strong{color:#4d3940}
+.empty{color:#a17f89}
+
+/* little decorative ribbon separators */
+.panel-title{position:relative}
+.panel-title h2{letter-spacing:.1px}
+
+.kitty-welcome{
+  background:linear-gradient(135deg,#ffdfe7,#fff2f5);
+  border:1px solid #f3cbd4;border-radius:22px;padding:16px 20px;
+  margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;
+  box-shadow:0 7px 18px rgba(213,91,117,.08)
+}
+.kitty-welcome strong{font-size:20px;color:#d95672;margin-right:12px}
+.kitty-welcome span{color:#8b6b75;font-size:14px}
+.kitty-heart{font-size:25px!important;color:#e45e79!important}
+@media(max-width:700px){.kitty-welcome{padding:14px;gap:10px}.kitty-welcome strong{display:block;margin:0 0 2px}}
+
+/* ===== V32: unified typography colors ===== */
+body{color:#5b464d}
+.panel-title h2,
+.panel h2,
+.panel h3{color:#5b3f47 !important}
+.panel-title p,
+.note,
+.empty{color:#9a7d86 !important}
+label{color:#765c65 !important}
+input,select,textarea{color:#5b464d !important}
+input::placeholder,textarea::placeholder{color:#b69ba3}
+.card span{color:#866a73 !important}
+.card strong{color:#5b3f47 !important}
+table th{color:#957681 !important}
+table td{color:#5b464d}
+.topbar h1{color:#e35f79 !important}
+.topbar p{color:#9a7d86 !important}
+.topbar nav a{color:#765c65 !important}
+.topbar nav a.active,.topbar nav a:hover{color:#d95772 !important}
+.topbar::after{color:#a17f89 !important}
+.kitty-welcome strong{color:#d95772 !important}
+.kitty-welcome span{color:#8f7079 !important}
+.bill-header h2,.bill-number strong{color:#d95772 !important}
+
+/* Remove the old "first letter is pink" effect. */
+.panel-title h2::first-letter{color:inherit !important}
+
+/* Keep semantic money colors only where they convey meaning. */
+.amount-income{color:#329766 !important}
+.amount-expense{color:#d95b68 !important}
+
+/* ===== V33: emoji spacing + no overlap ===== */
+.topbar nav a{display:flex;align-items:center;gap:12px}
+.topbar nav a::first-letter{font-size:20px}
+.card span{display:flex;align-items:center;gap:9px;line-height:1.35}
+.card span::first-letter{font-size:20px}
+.panel-title h2{display:flex;align-items:center;gap:9px}
+.panel-title h2::first-letter{font-size:22px}
+label{line-height:1.4}
+label::first-letter{font-size:18px}
+.kitty-welcome{gap:12px}
+.kitty-welcome strong{display:inline-flex;align-items:center;gap:8px}
+.kitty-welcome strong::first-letter{font-size:20px}
+.invoice-row span,.status,.status-btn,.primary-btn,.delete-btn,.undo-btn{
+  white-space:nowrap
+}
+/* Emoji in the latest-transaction text should never be positioned absolutely. */
+.invoice-row>*{position:relative}
+.dashboard-cards .card:first-child::after{display:none}
+
+/* ===== V34: homepage visual refresh to match the provided reference ===== */
+:root{
+  --kitty-pink:#f36f8e;--kitty-pink-dark:#df5675;--kitty-pale:#fff0f4;
+  --kitty-border:#f5cbd5;--kitty-text:#5b4048;--kitty-muted:#9a7a83;
+  --kitty-shadow:0 10px 28px rgba(214,91,118,.09);
+}
+body{
+  background:
+    radial-gradient(circle at 9px 9px,rgba(245,145,165,.14) 0 2px,transparent 2.4px) 0 0/34px 34px,
+    linear-gradient(180deg,#fffafd 0%,#fff7fa 100%);
+  color:var(--kitty-text);
+}
+.topbar{
+  width:320px;padding:18px 20px;background:linear-gradient(180deg,#fffafb 0%,#fff5f8 100%);
+  border-right:1px solid #f3d8df;box-shadow:4px 0 25px rgba(214,91,118,.05)
+}
+.topbar>div:first-child{padding:0 0 18px;margin:0 0 16px;border-bottom:1px solid #f4dfe5}
+.topbar .brand{text-align:center}
+.brand-kitty{
+  width:250px;height:220px;object-fit:cover;object-position:center top;
+  display:block;margin:0 auto 2px;border-radius:24px;
+}
+.topbar h1{font-size:34px;color:var(--kitty-pink-dark)!important;letter-spacing:.1px}
+.topbar h1::before{display:none}
+.topbar p{margin:0;color:#8f7079!important;font-size:15px}
+.topbar nav{gap:10px}
+.topbar nav a{
+  min-height:64px;padding:13px 18px;border-radius:18px;border:1px solid transparent;
+  font-size:17px;font-weight:600;color:#6c515a!important;gap:14px
+}
+.topbar nav a:hover{background:#fff0f4;border-color:#f5d1da;color:var(--kitty-pink-dark)!important}
+.topbar nav a.active{
+  background:linear-gradient(135deg,#f66f8e,#ee7f9a)!important;color:#fff!important;
+  border-color:#ef7d98;box-shadow:0 7px 18px rgba(238,100,130,.18)
+}
+.nav-icon{
+  width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 32px;border-radius:10px;background:#fff8fa;color:var(--kitty-pink-dark);
+  font-size:20px;line-height:1
+}
+.topbar nav a.active .nav-icon{background:rgba(255,255,255,.28);color:#fff}
+.sidebar-footer{
+  margin-top:auto;border-top:1px solid #f2dbe1;padding:18px 10px 4px;
+  text-align:center;color:#9b7982;font-size:16px
+}
+.container{padding:28px 56px 60px 368px}
+.page-head{
+  min-height:96px;padding:18px 26px;margin-bottom:18px;border:1px solid #f4cbd6;
+  border-radius:24px;background:linear-gradient(135deg,#ffe8ee,#fff4f7);
+  display:flex;align-items:center;justify-content:space-between;box-shadow:var(--kitty-shadow)
+}
+.page-head h2{margin:0;color:var(--kitty-pink-dark);font-size:28px}
+.page-head h2 span{font-size:25px}
+.page-head p{margin:4px 0 0;color:var(--kitty-muted);font-size:15px}
+.page-head-heart{font-size:32px;color:#d27a8c}
+
+.panel,.card{border-color:var(--kitty-border);box-shadow:var(--kitty-shadow)}
+.panel{border-radius:22px;background:rgba(255,255,255,.96)}
+.backup-panel{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:17px 22px!important
+}
+.backup-copy{display:flex;align-items:center;gap:14px}
+.backup-copy strong{font-size:20px;color:#5b3e46}
+.backup-lock{
+  width:50px;height:50px;border-radius:15px;background:#fff0f4;
+  display:flex;align-items:center;justify-content:center;font-size:28px
+}
+.backup-actions{display:flex;align-items:center;gap:16px}
+.restore-label{
+  display:flex!important;flex-direction:row!important;align-items:center!important;
+  gap:10px!important;white-space:nowrap
+}
+.restore-label input{width:260px!important}
+
+.cards.dashboard-cards{gap:18px;margin-bottom:18px}
+.dashboard-cards .card{
+  min-height:144px;padding:20px 22px;border-radius:20px;justify-content:center
+}
+.card-label{
+  display:flex!important;align-items:center!important;gap:11px!important;
+  color:#6f555e!important;font-size:16px!important;line-height:1.35!important
+}
+.card-label i{
+  width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:13px;background:rgba(255,255,255,.75);font-style:normal;
+  font-size:25px;flex:0 0 42px
+}
+.dashboard-cards .card strong{font-size:28px;margin-top:11px;color:#54363f!important}
+.card.balance{background:linear-gradient(135deg,#ffe9ef,#fff)}
+.card.bank{background:linear-gradient(135deg,#fff2f5,#fff)}
+.card.cash{background:linear-gradient(135deg,#fff8e8,#fff)}
+.card.income{background:linear-gradient(135deg,#effbf4,#fff)}
+.card.expense{background:linear-gradient(135deg,#fff0f3,#fff)}
+.card.due{background:linear-gradient(135deg,#fff4df,#fff)}
+.card.remaining{background:linear-gradient(135deg,#fff0f3,#fff)}
+.card.paid{background:linear-gradient(135deg,#effaf3,#fff)
+
+}
+.monthly-summary{grid-template-columns:repeat(3,1fr)!important}
+.monthly-summary .card{min-height:105px}
+.monthly-summary .card-label i{width:34px;height:34px;flex-basis:34px;font-size:19px}
+
+.panel-title h2{font-size:25px;color:#563e45!important}
+.panel-title p{color:#9a7a83!important}
+input,select,textarea{border-color:#efd4db;border-radius:13px}
+.primary-btn{
+  background:linear-gradient(135deg,#ef6483,#f5829d);
+  box-shadow:0 7px 16px rgba(236,92,124,.18)
+}
+.status-btn{background:#fff0f4;color:#d95772}
+.undo-btn{background:#fff0f4;color:#8d6370}
+.table-wrap{border-radius:15px}
+th{color:#967580!important}
+tr:hover td{background:#fff7f9}
+.delete-btn{background:#fff0f2;color:#ce5064}
+
+@media(max-width:1100px){
+  .topbar{width:270px}.container{padding-left:298px;padding-right:24px}
+  .backup-panel{align-items:flex-start;flex-direction:column}.backup-actions{width:100%}
+}
+@media(max-width:700px){
+  .topbar{width:auto;padding:12px;position:static}.brand-kitty{width:180px;height:150px}
+  .topbar nav{display:grid;grid-template-columns:1fr 1fr}.topbar nav a{min-height:52px;font-size:14px}
+  .container{padding:14px}.page-head{padding:16px}.page-head h2{font-size:23px}
+  .backup-actions{flex-direction:column;align-items:stretch}.restore-label{justify-content:space-between}
+  .restore-label input{width:180px!important}.monthly-summary{grid-template-columns:repeat(2,1fr)!important}
+}
+
+/* ===== V35: dashboard card sizing fix ===== */
+.dashboard-cards{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:18px;
+}
+.dashboard-cards .card{
+  min-width:0;
+  min-height:185px;
+  padding:24px 22px;
+  overflow:hidden;
+  justify-content:flex-start;
+}
+.dashboard-cards .card span{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  min-height:58px;
+  font-size:17px !important;
+  line-height:1.35;
+  white-space:normal;
+  overflow-wrap:break-word;
+}
+.dashboard-cards .card strong{
+  display:block;
+  width:100%;
+  margin-top:15px;
+  font-size:27px !important;
+  line-height:1.15;
+  white-space:nowrap;
+  letter-spacing:-0.6px;
+  overflow:hidden;
+  text-overflow:clip;
+}
+@media(max-width:1350px){
+  .dashboard-cards .card{padding:21px 18px}
+  .dashboard-cards .card span{font-size:15px !important}
+  .dashboard-cards .card strong{font-size:23px !important;letter-spacing:-.8px}
+}
+@media(max-width:1150px){
+  .dashboard-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dashboard-cards .card strong{font-size:26px !important}
+}
+@media(max-width:760px){
+  .dashboard-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dashboard-cards .card{min-height:155px}
+  .dashboard-cards .card strong{font-size:23px !important}
+}

@@ -1,0 +1,44 @@
+<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Money - หน้าหลัก</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ef6f8b"></head><body><header class="topbar">
+  <div class="brand">
+    <img src="kitty-sidebar.png" alt="" class="brand-kitty">
+    <h1>My Money</h1>
+    <p>ระบบบันทึกการเงินส่วนตัว</p>
+  </div>
+  <nav>
+    <a class="active" href="index.html"><span class="nav-icon">⌂</span><span>หน้าหลัก</span></a>
+    <a href="due.html"><span class="nav-icon">🗓</span><span>รายการที่ต้องจ่าย</span></a>
+    <a href="installments.html"><span class="nav-icon">💳</span><span>รายการผ่อน</span></a>
+    <a href="invoice.html"><span class="nav-icon">🧾</span><span>ออกบิล</span></a>
+  </nav>
+  <div class="sidebar-footer">สวัสดีค่ะ <span>🎀</span></div>
+</header><main class="container"><section class="page-head">
+  <div>
+    <h2>สวัสดีค่ะ <span>🎀</span></h2>
+    <p id="todayLabel">วันนี้จัดการเงินของเราให้เป็นระเบียบกันนะคะ</p>
+  </div>
+  <div class="page-head-heart">♡</div>
+</section><section class="panel backup-panel"><div class="backup-copy"><div class="backup-lock">🔐</div><div><strong>ฐานข้อมูลปลอดภัย</strong><div class="note">ข้อมูลทุกส่วนใช้ฐานข้อมูลเดียวกัน</div></div></div><div class="backup-actions"><button class="undo-btn" onclick="mmBackup()">สำรองข้อมูล</button><label class="restore-label">กู้คืนข้อมูล<input id="restoreFile" type="file" accept=".json"></label></div></section><section class="cards dashboard-cards">
+<div class="card balance"><span class="card-label"><i>🎀</i>เงินทั้งหมด</span><strong id="bal">฿0.00</strong></div>
+<div class="card bank"><span class="card-label"><i>🏦</i>เงินในบัญชี</span><strong id="bank">฿0.00</strong></div>
+<div class="card cash"><span class="card-label"><i>👛</i>เงินสด</span><strong id="cash">฿0.00</strong></div>
+<div class="card income"><span class="card-label"><i>💗</i>รายรับเดือนนี้</span><strong id="inc">฿0.00</strong></div>
+<div class="card expense"><span class="card-label"><i>💔</i>รายจ่ายเดือนนี้</span><strong id="exp">฿0.00</strong></div>
+</section>
+<section class="cards dashboard-cards">
+<div class="card due"><span class="card-label"><i>🗓️</i>ต้องจ่ายเดือนนี้</span><strong id="dueTotal">฿0.00</strong></div>
+<div class="card remaining"><span class="card-label"><i>🔔</i>ยังไม่ได้จ่าย</span><strong id="dueRemaining">฿0.00</strong></div>
+<div class="card paid"><span class="card-label"><i>✅</i>จ่ายแล้วเดือนนี้</span><strong id="duePaid">฿0.00</strong></div>
+<div class="card"><span class="card-label"><i>💳</i>งวดผ่อนที่ยังไม่จ่าย</span><strong id="installmentRemaining">0 งวด</strong></div>
+<div class="card"><span class="card-label"><i>🧾</i>บิลที่ออกเดือนนี้</span><strong id="invoiceCount">0 ใบ</strong></div>
+</section><section class="panel"><div class="panel-title row"><div><h2>📒 สรุปการเงินรายเดือน</h2><p>เลือกเดือนเพื่อดูภาพรวม</p></div><label style="max-width:190px">เดือน<select id="monthSummary"></select></label></div>
+<div class="cards monthly-summary">
+<div class="card"><span>📈 รายรับ</span><strong id="monthIncome">฿0.00</strong></div>
+<div class="card"><span>📉 รายจ่าย</span><strong id="monthExpense">฿0.00</strong></div>
+<div class="card"><span>💰 เงินเหลือสุทธิ</span><strong id="monthNet">฿0.00</strong></div>
+<div class="card"><span>📅 ต้องจ่าย</span><strong id="monthDue">฿0.00</strong></div>
+<div class="card"><span>💳 ยอดผ่อน</span><strong id="monthInstallment">฿0.00</strong></div>
+<div class="card"><span>🧾 บิลที่ออก</span><strong id="monthInvoices">0 ใบ</strong></div>
+</div></section>
+<section class="panel" id="homeDuePanel"><div class="panel-title row"><div><h2>🗓️ ต้องจ่ายเดือนนี้</h2><p id="homeDueSubtitle">รายการที่ยังต้องชำระ</p></div><a class="status-btn" href="due.html">ดูทั้งหมด →</a></div>
+<div id="homeDueList"></div><div id="homeDueEmpty" class="empty">เดือนนี้ยังไม่มีรายการที่ต้องจ่าย</div></section>
+<section class="panel"><div class="panel-title"><h2>เพิ่มรายรับ–รายจ่าย</h2><p>เลือกเงินในบัญชีหรือเงินสด</p></div><form id="f" class="form-grid"><label>ประเภท<select id="type"><option value="income">รายรับ</option><option value="expense">รายจ่าย</option></select></label><label>วันที่<input id="date" type="date" required></label><label>รายการ<input id="desc" required></label><label>จำนวนเงิน<input id="amt" type="number" min="0" step=".01" required></label><label>เงินจาก / เงินเข้า<select id="account"><option value="bank">🏦 เงินในบัญชี</option><option value="cash">👛 เงินสด</option></select></label><label>หมายเหตุ<input id="note"></label><button class="primary-btn">+ บันทึกรายการ</button></form></section><section class="panel"><div class="panel-title row"><div><h2>รายการล่าสุด</h2><p id="count">0 รายการ</p></div><select id="filter"><option value="all">ทั้งหมด</option><option value="income">รายรับ</option><option value="expense">รายจ่าย</option></select></div><div class="table-wrap"><table><thead><tr><th>วันที่</th><th>รายการ</th><th>ประเภท</th><th>เงิน</th><th>จำนวน</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div id="empty" class="empty">ยังไม่มีรายการ</div></section></main><script src="storage.js"></script><script src="index.js"></script><script>restoreFile.onchange=e=>mmRestore(e.target.files[0],()=>location.reload())</script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script></body></html>
